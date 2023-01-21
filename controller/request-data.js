@@ -6,7 +6,7 @@ const requestData = async (stock) => {
       return {stock: response.symbol, price: response.latestPrice};
     } catch (error) {
       console.log(error);
-      return null;
+      return { stock: stock, price: 0 };
     }
 }
 

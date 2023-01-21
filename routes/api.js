@@ -39,7 +39,7 @@ module.exports = function (app) {
         return;
       }
 
-      const secondResponse = secondStock !== null ? await requestData(secondStock) : null;
+      const secondResponse = await requestData(secondStock);
 
       let secondStockFromDB = await findStock(secondStock);
       if (!secondStockFromDB) {
@@ -55,8 +55,8 @@ module.exports = function (app) {
 
       res.json({
         stockData: [
-          { ...secondResponse, rel_likes: secondStockFromDB.likes },
-          { ...firstResponse, rel_likes: firstStockFromDB.likes }
+          { ...secondResponse, rel_likes: secondStockFromDB.likes - firstStockFromDB.likes },
+          { ...firstResponse, rel_likes: firstStockFromDB.likes - secondStockFromDB.likes }
         ]
       });
     });
